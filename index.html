@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050719">
+  <title>Mi universo eres tú ❤️</title>
+  <style>
+    :root { --white: #fff; --glow: #9bdcff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      color: var(--white);
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      background: radial-gradient(ellipse at 50% 35%, #17134a 0%, #080b27 42%, #02030d 100%);
+      overflow-x: hidden;
+    }
+    #stars, #dust { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    #stars { z-index: 0; }
+    #dust { z-index: 1; opacity: .5; }
+    .page { position: relative; z-index: 2; min-height: 100vh; padding: 28px 16px 50px; }
+    header { text-align: center; max-width: 760px; margin: 0 auto 18px; }
+    .eyebrow { color: #c6c4ff; letter-spacing: .22em; text-transform: uppercase; font-size: .72rem; }
+    h1 { margin: 8px 0; font-size: clamp(2rem, 6vw, 4.2rem); line-height: 1.04; text-shadow: 0 0 24px #a78bfa88; }
+    header p { color: #d8dcff; margin: 10px auto 0; max-width: 520px; line-height: 1.6; }
+    .hint { color: #aeb9e9; font-size: .88rem; margin-top: 14px; }
+    .universe { position: relative; max-width: 1100px; margin: 0 auto; min-height: 560px; display: grid; place-items: center; }
+    .galaxy {
+      position: absolute; width: min(82vw, 690px); aspect-ratio: 1.45; border-radius: 50%;
+      background:
+        radial-gradient(ellipse at 50% 50%, #fff9 0 1%, #f6b9ffcc 3%, #a855f7aa 10%, transparent 28%),
+        radial-gradient(ellipse at 50% 50%, transparent 20%, #7944ff55 28%, #e879f955 34%, transparent 49%),
+        radial-gradient(ellipse at 50% 50%, transparent 30%, #22d3ee33 43%, transparent 56%);
+      filter: blur(2px); transform: rotate(-24deg); animation: galaxyPulse 7s ease-in-out infinite;
+      opacity: .9; pointer-events: none;
+    }
+    .galaxy::before, .galaxy::after { content:""; position:absolute; inset: 10% -8%; border: 1px solid #b8a7ff33; border-radius: 50%; transform: rotate(23deg); }
+    .galaxy::after { inset: 22% -15%; transform: rotate(-19deg); border-color:#60a5fa22; }
+    @keyframes galaxyPulse { 0%,100% { opacity:.65; scale:.96; } 50% { opacity:1; scale:1.04; } }
+    .orbit-system { position: relative; width: min(94vw, 980px); height: 440px; display:flex; align-items:center; justify-content:center; }
+    .orbit {
+      position: absolute; border: 1px solid #9fbaff35; border-radius: 50%; left:50%; top:50%;
+      transform: translate(-50%,-50%); pointer-events:none;
+    }
+    .orbit:nth-child(1){width:170px;height:170px}
+    .orbit:nth-child(2){width:260px;height:260px}
+    .orbit:nth-child(3){width:350px;height:350px}
+    .orbit:nth-child(4){width:440px;height:440px}
+    .orbit:nth-child(5){width:530px;height:530px}
+    .orbit:nth-child(6){width:620px;height:620px}
+    .sun {
+      flex: 0 0 auto; width: 68px; height: 68px; border-radius: 50%; z-index: 3;
+      background: radial-gradient(circle at 35% 30%, #fff9b8, #ffb32e 35%, #ff5a1f 70%, #a91c4a);
+      box-shadow: 0 0 24px #ff9b35, 0 0 60px #ff6b2f88;
+      animation: sunBeat 4s ease-in-out infinite;
+    }
+    @keyframes sunBeat { 50% { box-shadow:0 0 36px #ffbf47,0 0 85px #ff6b2f99; } }
+    .planet {
+      position: absolute; z-index: 4; border: 0; border-radius: 50%; cursor: pointer; padding: 0;
+      transition: transform .25s, filter .25s; touch-action: manipulation;
+      box-shadow: inset -9px -8px 14px #0008, inset 4px 4px 8px #ffffff50, 0 0 18px #8ab8ff33;
+    }
+    .planet:hover, .planet:focus-visible { transform: scale(1.16); filter: brightness(1.25); outline: 2px solid #fff9; outline-offset: 5px; }
+    .planet .name { position:absolute; top: calc(100% + 10px); left:50%; transform:translateX(-50%); font-size:.78rem; font-weight:700; text-shadow:0 2px 9px #000; white-space:nowrap; }
+    .mercury { width:19px;height:19px; background:radial-gradient(circle at 30% 25%,#ddd,#817b83 55%,#393444); left:18%; top:47%; }
+    .venus { width:28px;height:28px; background:radial-gradient(circle at 30% 25%,#ffe4a6,#e79b39 52%,#9b4a22); left:28%; top:34%; }
+    .earth { width:30px;height:30px; background:radial-gradient(circle at 35% 25%,#b4f4ff,#168be6 43%,#1541a4 75%); left:39%; top:64%; }
+    .mars { width:24px;height:24px; background:radial-gradient(circle at 30% 25%,#ffbd94,#d34b37 55%,#76253b); left:48%; top:28%; }
+    .moon { width:70px;height:70px; left:50%; top:50%; transform:translate(-50%,-50%); background:
+      radial-gradient(circle at 30% 28%,#fff,#d9e5f9 30%,#7f91b4 67%,#3d4569);
+      box-shadow:0 0 24px #a5d8ff,0 0 55px #7c9dff88; animation: moonFloat 4s ease-in-out infinite; }
+    .moon:hover,.moon:focus-visible { transform:translate(-50%,-50%) scale(1.12); }
+    @keyframes moonFloat { 50% { margin-top:-8px; } }
+    .jupiter { width:48px;height:48px; background:repeating-linear-gradient(0deg,#d5a16c 0 5px,#f5d6a6 6px 10px,#9b654d 11px 14px); left:63%; top:27%; }
+    .saturn { width:40px;height:40px; background:repeating-linear-gradient(0deg,#fff0c2 0 6px,#d9a968 7px 12px); left:72%; top:57%; }
+    .saturn::after { content:""; position:absolute; width:65px;height:19px; border:4px solid #d9c39b; border-left-color:#f7e5b7; border-right-color:#a17a55; border-radius:50%; left:50%;top:50%; transform:translate(-50%,-50%) rotate(-22deg); }
+    .uranus { width:29px;height:29px; background:radial-gradient(circle at 30% 25%,#bafaff,#40c8d8 55%,#176d9b); left:81%; top:35%; }
+    .neptune { width:27px;height:27px; background:radial-gradient(circle at 30% 25%,#b7d4ff,#3868f2 55%,#172b88); left:89%; top:60%; }
+    .message {
+      width:min(92vw, 490px); margin: 4px auto 0; padding: 20px; text-align:center;
+      border:1px solid #b8caff55; border-radius:22px; background:#0b1029c9;
+      box-shadow:0 0 35px #8b5cf633; backdrop-filter: blur(12px);
+      min-height: 90px; display:grid; place-items:center;
+    }
+    .message p { margin:0; font-size:1.05rem; line-height:1.65; color:#f2efff; }
+    .message .caption { color:#b8c7ff; font-size:.8rem; margin-top:8px; }
+    .galaxy-button { margin: 18px auto 0; display:block; padding:12px 20px; border:1px solid #d9c8ff88; border-radius:999px; color:white; background:linear-gradient(90deg,#6d28d9aa,#2563ebaa); font:inherit; cursor:pointer; box-shadow:0 0 22px #8b5cf644; }
+    .modal { position:fixed; inset:0; z-index:10; display:none; place-items:center; padding:20px; background:#02030de8; backdrop-filter:blur(12px); }
+    .modal.open { display:grid; }
+    .modal-card { width:min(100%, 430px); text-align:center; padding:18px; border:1px solid #a5c9ff99; border-radius:24px; background:linear-gradient(145deg,#141a3b,#070b1d); box-shadow:0 0 55px #60a5fa55; animation:appear .3s ease-out; }
+    @keyframes appear { from { opacity:0; transform:translateY(12px) scale(.97); } to { opacity:1; transform:none; } }
+    .modal-card img { display:block; width:100%; max-height:52vh; object-fit:cover; border-radius:16px; border:1px solid #c4d9ff66; }
+    .modal-card h2 { margin:16px 0 8px; font-size:1.35rem; }
+    .modal-card p { color:#e2e8ff; line-height:1.6; margin:0 0 14px; }
+    .close { border:0; border-radius:999px; background:#e9d5ff; color:#1c1644; padding:10px 18px; font:inherit; font-weight:700; cursor:pointer; }
+    footer { text-align:center; margin:30px auto 0; color:#aeb9e9; font-size:.82rem; }
+    @media (max-width:650px) {
+      .page { padding:22px 12px 34px; }
+      .universe { min-height:430px; overflow:hidden; }
+      .orbit-system { width:100%; height:330px; transform:scale(.91); }
+      .orbit:nth-child(1){width:100px;height:100px}
+      .orbit:nth-child(2){width:160px;height:160px}
+      .orbit:nth-child(3){width:220px;height:220px}
+      .orbit:nth-child(4){width:280px;height:280px}
+      .orbit:nth-child(5){width:340px;height:340px}
+      .orbit:nth-child(6){width:400px;height:400px}
+      .sun { width:48px;height:48px; }
+      .mercury { left:7%; top:46%; width:14px;height:14px; }
+      .venus { left:18%; top:30%; width:20px;height:20px; }
+      .earth { left:29%; top:68%; width:22px;height:22px; }
+      .mars { left:40%; top:25%; width:18px;height:18px; }
+      .moon { width:58px;height:58px; left:50%;top:50%; }
+      .jupiter { left:64%;top:25%;width:34px;height:34px; }
+      .saturn { left:74%;top:61%;width:28px;height:28px; }
+      .saturn::after { width:46px;height:13px;border-width:3px; }
+      .uranus { left:83%;top:34%;width:21px;height:21px; }
+      .neptune { left:91%;top:61%;width:20px;height:20px; }
+      .planet .name { font-size:.68rem; top:calc(100% + 8px); }
+      .message { padding:16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation:none !important; scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <canvas id="dust"></canvas>
+  <main class="page">
+    <header>
+      <div class="eyebrow">Un pequeño universo para ti</div>
+      <h1>Mi universo eres tú <span aria-hidden="true">♡</span></h1>
+      <p>Entre millones de estrellas, mi corazón siempre encuentra el camino hacia ti.</p>
+      <div class="hint">✨ Toca cada planeta para descubrir tu mensaje especial ✨</div>
+    </header>
+
+    <section class="universe" aria-label="Sistema solar interactivo">
+      <div class="galaxy" aria-hidden="true"></div>
+      <div class="orbit-system">
+        <div class="orbit"></div><div class="orbit"></div><div class="orbit"></div>
+        <div class="orbit"></div><div class="orbit"></div><div class="orbit"></div>
+        <div class="sun" aria-label="Sol"></div>
+        <button class="planet mercury" data-title="Mercurio" data-message="Aunque el mundo vaya deprisa, siempre encuentro un momento para pensar en ti. ♡" aria-label="Mercurio: ver mensaje"><span class="name">Mercurio</span></button>
+        <button class="planet venus" data-title="Venus" data-message="Eres mi lugar favorito, incluso cuando no estamos en el mismo lugar. 💗" aria-label="Venus: ver mensaje"><span class="name">Venus</span></button>
+        <button class="planet earth" data-title="Tierra" data-message="De todos los lugares del universo, mi lugar favorito siempre será a tu lado. 🌎" aria-label="Tierra: ver mensaje"><span class="name">Tierra</span></button>
+        <button class="planet mars" data-title="Marte" data-message="Por ti lucharía hasta en los días más difíciles, porque lo nuestro vale cada esfuerzo. ❤️" aria-label="Marte: ver mensaje"><span class="name">Marte</span></button>
+        <button class="planet moon" id="moonButton" data-title="La Luna" aria-label="Toca la Luna para ver la foto de sus ojos"><span class="name">Luna ♥</span></button>
+        <button class="planet jupiter" data-title="Júpiter" data-message="Mi amor por ti es más grande que cualquier distancia y más fuerte que cualquier tormenta. 💫" aria-label="Júpiter: ver mensaje"><span class="name">Júpiter</span></button>
+        <button class="planet saturn" data-title="Saturno" data-message="Si pudiera elegir de nuevo, en esta vida y en mil universos más, volvería a elegirte a ti. 💍" aria-label="Saturno: ver mensaje"><span class="name">Saturno</span></button>
+        <button class="planet uranus" data-title="Urano" data-message="Contigo, hasta los días más normales se convierten en recuerdos preciosos. 🩵" aria-label="Urano: ver mensaje"><span class="name">Urano</span></button>
+        <button class="planet neptune" data-title="Neptuno" data-message="Mi amor por ti no tiene final; siempre habrá una nueva estrella para recordarte cuánto te amo. 💙" aria-label="Neptuno: ver mensaje"><span class="name">Neptuno</span></button>
+      </div>
+    </section>
+
+    <section class="message" aria-live="polite">
+      <div>
+        <p id="mainMessage">Toca un planeta y descubre un pedacito de todo lo que siento por ti. 💌</p>
+        <div class="caption" id="messageCaption">Un mensaje escrito entre estrellas</div>
+      </div>
+    </section>
+    <button class="galaxy-button" id="galaxyButton">🌌 Toca la galaxia</button>
+    <footer>Hecho con amor, para la persona que ilumina mi universo. ❤️</footer>
+  </main>
+
+  <div class="modal" id="moonModal" role="dialog" aria-modal="true" aria-labelledby="moonTitle">
+    <div class="modal-card">
+      <img src="ojos.jpg" alt="La foto de tus ojos" id="eyesPhoto">
+      <h2 id="moonTitle">Tus ojos, mi luna favorita 🌙</h2>
+      <p>Tus ojos son hermosos y brillan como la luna llena. Podría mirarlos mil noches y nunca dejarían de parecerme mágicos. ❤️</p>
+      <button class="close" id="closeModal">Volver al universo ✨</button>
+    </div>
+  </div>
+
+  <script>
+    // Estrellas animadas: funcionan sin librerías externas.
+    function createStars(canvasId, count, speed, alpha) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      let w = 0, h = 0, stars = [];
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = window.innerWidth; h = window.innerHeight;
+        canvas.width = w * dpr; canvas.height = h * dpr;
+        canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        stars = Array.from({length: count}, () => ({
+          x: Math.random() * w, y: Math.random() * h,
+          r: Math.random() * 1.6 + .25, a: Math.random() * alpha + .15,
+          phase: Math.random() * Math.PI * 2, drift: (Math.random() - .5) * speed
+        }));
+      }
+      function draw(t) {
+        ctx.clearRect(0, 0, w, h);
+        for (const s of stars) {
+          const twinkle = .55 + .45 * Math.sin(t * .0015 + s.phase);
+          ctx.globalAlpha = s.a * twinkle;
+          ctx.fillStyle = '#dce9ff';
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+          s.y += speed * .12; s.x += s.drift * .04;
+          if (s.y > h) { s.y = 0; s.x = Math.random() * w; }
+          if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+      }
+      resize(); window.addEventListener('resize', resize); requestAnimationFrame(draw);
+    }
+    createStars('stars', 180, .6, .9);
+    createStars('dust', 55, .25, .35);
+
+    const mainMessage = document.getElementById('mainMessage');
+    const messageCaption = document.getElementById('messageCaption');
+    document.querySelectorAll('.planet:not(.moon)').forEach(planet => {
+      planet.addEventListener('click', () => {
+        mainMessage.textContent = planet.dataset.message;
+        messageCaption.textContent = 'Un mensaje de tu universo: ' + planet.dataset.title + ' ♡';
+      });
+    });
+
+    const modal = document.getElementById('moonModal');
+    const moonButton = document.getElementById('moonButton');
+    const closeModal = document.getElementById('closeModal');
+    function openMoon() {
+      modal.classList.add('open');
+      closeModal.focus();
+    }
+    function closeMoon() {
+      modal.classList.remove('open');
+      moonButton.focus();
+    }
+    moonButton.addEventListener('click', openMoon);
+    closeModal.addEventListener('click', closeMoon);
+    modal.addEventListener('click', e => { if (e.target === modal) closeMoon(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeMoon(); });
+
+    document.getElementById('galaxyButton').addEventListener('click', () => {
+      mainMessage.textContent = 'Mi amor es tan inmenso como esta galaxia. Y aun si el universo no tuviera fin, seguiría buscando nuevas formas de amarte. 🌌❤️';
+      messageCaption.textContent = 'Mi infinito siempre empieza y termina en ti';
+      document.querySelector('.galaxy').style.filter = 'brightness(1.55) blur(1px)';
+      setTimeout(() => document.querySelector('.galaxy').style.filter = '', 1200);
+    });
+
+    // Si todavía no se ha añadido ojos.jpg, muestra una ilustración de respaldo en vez de un icono roto.
+    document.getElementById('eyesPhoto').addEventListener('error', function () {
+      this.alt = 'Añade tu foto con el nombre ojos.jpg en esta misma carpeta';
+      this.style.display = 'none';
+      const note = document.createElement('p');
+      note.textContent = '📸 Pon la foto de sus ojos en esta carpeta y nómbrala ojos.jpg para que aparezca aquí.';
+      note.style.cssText = 'padding:18px;border:1px dashed #a5c9ff88;border-radius:12px;color:#cdd8ff;';
+      this.insertAdjacentElement('afterend', note);
+    });
+  </script>
+</body>
+</html>
